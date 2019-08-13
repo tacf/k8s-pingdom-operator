@@ -1,0 +1,9 @@
+apiVersion: tacf.github.io/v1alpha1
+kind: PingdomOperator
+metadata:
+  name: example-pingdom-operator
+spec:
+  checks:
+    - type: http
+      url: google.com
+      interval: 1
