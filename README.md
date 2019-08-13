@@ -2,14 +2,17 @@
 
 K8s Pingdom Operator is a simple kubernates controller (based on the [operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/#operators-in-kubernetes)). It allows you to manage your _Pingdom_ service checks through the usage of [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
+Since this was my first experince with K8s extensions (and Golang for production like purposes) this code is highly inspired by the [sample controller](https://github.com/kubernetes/sample-controller) from K8S oficial repo.
+
 ## Setup
+
 Installing dependencies
 
 ```golang
 go get -u
 ```
 
-you may need to add `GO111MODULES=on`as a prefix for the command above.
+you may need to add `GO111MODULES=on` as a prefix for the command above, or simply export the variable.
 
 ## Building
 
@@ -29,6 +32,8 @@ After setting the `kubeconfig` simply run
 ./pingdom-controller -kubeconfig=<path to kubeconfig>
 ```
 
+When running it as a container in your cluster (as it is intedend to be ran) you should make sure that you container has enough permissions to access your control plane (through the use of a _service account_)
+
 ## Limitations
 
-As of now the definition and implementation of the controller only allows for simple _http_ checks to be created.
+As of now the definition and implementation of the controller only allows for simple _http(s)_ checks to be created.
