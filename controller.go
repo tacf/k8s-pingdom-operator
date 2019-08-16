@@ -153,7 +153,8 @@ func (c *Controller) processNextWorkItem() bool {
 
 		if err := c.syncHandler(obj.(QueueObject)); err != nil {
 			c.workqueue.AddRateLimited(qObj)
-			return fmt.Errorf("error syncing '%s': %s, requeuing", getResourceNamespaceKey(qObj), err.Error())
+			utilruntime.HandleError(fmt.Errorf("error syncing '%s': %s, requeuing", getResourceNamespaceKey(qObj), err.Error()))
+			return nil
 		}
 
 		c.workqueue.Forget(obj)
@@ -170,11 +171,17 @@ func (c *Controller) processNextWorkItem() bool {
 
 func getResourceNamespaceKey(obj QueueObject) string {
 	var key string
-	//TODO FIX ERROR HANDLING
+	var err error
+
 	if (obj.opType == add) && (obj.opType == update) {
-		key, _ = cache.MetaNamespaceKeyFunc(obj.value)
+		key, err = cache.MetaNamespaceKeyFunc(obj.value)
 	} else {
-		key, _ = cache.DeletionHandlingMetaNamespaceKeyFunc(obj.value)
+		key, err = cache.DeletionHandlingMetaNamespaceKeyFunc(obj.value)
+	}
+
+	if err != nil {
+		utilruntime.HandleError(fmt.Errorf("could not retrieve key for object"))
+		return ""
 	}
 
 	namespace, name, err := cache.SplitMetaNamespaceKey(key)
