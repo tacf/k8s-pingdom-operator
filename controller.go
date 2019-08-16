@@ -20,24 +20,17 @@ import (
 	"fmt"
 	"time"
 
-	//corev1 "k8s.io/api/core/v1"
-
-	//metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 
-	//"k8s.io/client-go/kubernetes/scheme"
-	//typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/tools/cache"
-	//"k8s.io/client-go/tools/record"
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog"
 
 	pingdomv1alpha1 "github.com/tacf/k8s-pingdom-operator/pkg/apis/pingdomcontroller/v1alpha1"
 	clientset "github.com/tacf/k8s-pingdom-operator/pkg/generated/clientset/versioned"
 
-	//pingdomoperatorscheme "github.com/tacf/k8s-pingdom-operator/pkg/generated/clientset/versioned/scheme"
 	informers "github.com/tacf/k8s-pingdom-operator/pkg/generated/informers/externalversions/pingdomcontroller/v1alpha1"
 	listers "github.com/tacf/k8s-pingdom-operator/pkg/generated/listers/pingdomcontroller/v1alpha1"
 
