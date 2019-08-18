@@ -127,15 +127,16 @@ func (c *Client) AddCheck(checks []BasicHTTPCheck) {
 		if c.checkExists(check) {
 			klog.Infof("Check %s already exists", check.Name)
 			c.updateCheck(check)
+			return
 		}
 
 		newCheck := pingdom.HttpCheck{Name: check.Name, Hostname: check.URL, Resolution: int(check.Interval)}
-		ncheck, err := c.Checks.Create(&newCheck)
+		_, err := c.Checks.Create(&newCheck)
 		if err != nil {
 			klog.Errorf("Could not create check: %s", err)
 			return
 		}
-		klog.Infof("Created check:", ncheck)
+		klog.Infof("Created check: %s, URL: %s, Interval: %d ", check.Name, check.URL, check.Interval)
 	}
 }
 
