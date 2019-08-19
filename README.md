@@ -34,6 +34,20 @@ After setting the `kubeconfig` simply run
 
 When running it as a container in your cluster (as it is intedend to be ran) you should make sure that you container has enough permissions to access your control plane (through the use of a _service account_)
 
+## Features
+
+### Sync at controller startup
+
+![Sync Demo](docs/images/demo/sync.gif)
+
+### Create and Delete Checks
+
+![Create and Delete Demo](docs/images/demo/create_and_delete.gif)
+
+### Update Checks
+
+![Update Demo](docs/images/demo/update.gif)
+
 ## Limitations
 
 As of now the definition and implementation of the controller only allows for simple _http(s)_ checks to be created.
