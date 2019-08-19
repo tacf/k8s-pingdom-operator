@@ -100,7 +100,7 @@ func (c *Client) updateCheck(check BasicHTTPCheck) {
 
 func (c *Client) deleteCheck(check BasicHTTPCheck) {
 	if c.checkExists(check) {
-		klog.Infof("Check %s matches definition found in Pingdom ... Updating it!", check.Name)
+		klog.Infof("Check %s matches definition found in Pingdom ... Deleting it!", check.Name)
 		checkDetails, err := c.getCheckDetails(check)
 		if err != nil {
 			klog.Errorf("Check %s - %s not found", check.Name, check.URL)
@@ -110,7 +110,7 @@ func (c *Client) deleteCheck(check BasicHTTPCheck) {
 		if err != nil {
 			klog.Errorf("Error deleting check from resource %s", check.Name)
 		} else {
-			klog.Infof("Successfully deleted check details with new resource %s", check.Name)
+			klog.Infof("Successfully deleted check %s", check.Name)
 		}
 	} else {
 		klog.Warningf("Check from resource %s not found in Pingdom ... Skipping it!")
