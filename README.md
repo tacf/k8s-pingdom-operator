@@ -34,6 +34,30 @@ After setting the `kubeconfig` simply run
 
 When running it as a container in your cluster (as it is intedend to be ran) you should make sure that you container has enough permissions to access your control plane (through the use of a _service account_)
 
+## Usage
+
+The next section has some demonstrations on how to apply your checks (also, update and delete). The first step is adding your `Custom Resource Definition` to the cluster
+
+```shell
+kubectl apply -f artifact/examples/crd.yaml 
+```
+
+Then you can add your checks as you would with any other K8s native object. Heres an example of a `PingdomOperator` custom object defined by the definition applied in the step above
+
+```text
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: pingdomoperators.tacf.github.io
+spec:
+  group: tacf.github.io
+  version: v1alpha1
+  names:
+    kind: PingdomOperator
+    plural: pingdomoperators
+  scope: Namespaced
+```
+
 ## Features
 
 ### Sync at controller startup
